@@ -13,3 +13,4 @@ function mensagem($texto, $tipo)
   $texto
 </div>";
 }
+
