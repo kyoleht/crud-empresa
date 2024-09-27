@@ -14,3 +14,8 @@ function mensagem($texto, $tipo)
 </div>";
 }
 
+function mostra_data($data) {
+  $date = explode('-', $data);
+  $escreve = $date[2] . '/'. $date[1] . '/'. $date[0];
+  return $escreve;
+}

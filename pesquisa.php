@@ -22,14 +22,6 @@ $sql = "SELECT * FROM pessoas WHERE nome LIKE '%$pesquisa%'";
 
 $dados = mysqli_query($conn, $sql);
 
-while($linha = mysqli_fetch_assoc($dados)) {
-    foreach ($linha as $key => $value) {
-        echo "$key: $value <br>";
-    }
-}
-
-
-
 ?>
     <div class="container">
         <div class="row">
@@ -38,7 +30,7 @@ while($linha = mysqli_fetch_assoc($dados)) {
                 <nav class="navbar bg-body-tertiary">
                     <div class="container-fluid">
                         <form class="d-flex" role="search" action="pesquisa.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Nome" aria-label="Search" name="busca">
+                            <input class="form-control me-2" type="search" placeholder="Nome" aria-label="Search" name="busca" autofocus>
                             <button class="btn btn-outline-success" type="submit">OK</button>
                         </form>
                     </div>
@@ -46,36 +38,49 @@ while($linha = mysqli_fetch_assoc($dados)) {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            
                             <th scope="col">Nome</th>
                             <th scope="col">Endereço</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Data de Nascimento</th>
                             <th scope="col">Email</th>
                             <th scope="col">Senha</th>
+                            <th scope="col">Funções</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Rafa</td>
-                            <td>Lá</td>
-                            <td>40028922</td>
-                            <td>Aquela</td>
-                            <td>Aquele lá</td>
-                            <td>Aquela lá</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacbo</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                    
+                    <?php           
+                    
+
+                        while($linha = mysqli_fetch_assoc($dados)) {
+                            $id = $linha['id'];
+                            $nome = $linha['nome'];
+                            $endereco = $linha['endereco'];
+                            $telefone = $linha['telefone'];
+                            $dt_nascimento = $linha['dt_nascimento'];
+                            $email = $linha['email'];
+                            $senha = $linha['senha'];
+                            $dt_nascimento = mostra_data($dt_nascimento);
+
+                            echo "<tr>
+                                    <th scope='row'>$nome</th>
+                                    <td>$endereco</td>
+                                    <td>$telefone</td>
+                                    <td>$dt_nascimento</td>
+                                    <td>$email</td>
+                                    <td>$senha</td>
+                                    <td width=150px>
+                                    <a href='editar.php?id=$id' class='btn btn-success btn-sm'>Editar</a>      
+                                    <a href='excluir.php' class='btn btn-danger btn-sm'>Excluir</a>
+                                    </td>                             
+                              </tr>";
+                                
+                        
+                        }
+
+                    ?>
+
                     </tbody>
                 </table>
 
@@ -86,3 +91,4 @@ while($linha = mysqli_fetch_assoc($dados)) {
 </body>
 
 </html>
+
