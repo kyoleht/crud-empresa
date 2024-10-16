@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col">
                 <h1>Cadastro</h1>
-                <form action="cadastro_script.php" method="POST">
+                <form action="cadastro_script.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3 row">
                         <div class="form-group mb-3">
                             <label for="nome">Nome Completo</label>
@@ -50,6 +50,12 @@
                             <label for="Senha">Senha</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" name="senha" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="foto">Foto</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="foto" accept=".jpg">
                             </div>
                         </div>
                         <div class="form-group mb-3">
