@@ -11,18 +11,18 @@
 
 <body>
 
-<?php 
+    <?php
 
-include "conexao.php";
+    include "conexao.php";
 
-$pesquisa = $_POST['busca'] ?? '';
+    $pesquisa = $_POST['busca'] ?? '';
 
 
-$sql = "SELECT * FROM pessoas WHERE nome LIKE '%$pesquisa%'";
+    $sql = "SELECT * FROM pessoas WHERE nome LIKE '%$pesquisa%'";
 
-$dados = mysqli_query($conn, $sql);
+    $dados = mysqli_query($conn, $sql);
 
-?>
+    ?>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -38,7 +38,7 @@ $dados = mysqli_query($conn, $sql);
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            
+
                             <th scope="col">Nome</th>
                             <th scope="col">Endereço</th>
                             <th scope="col">Telefone</th>
@@ -49,11 +49,11 @@ $dados = mysqli_query($conn, $sql);
                         </tr>
                     </thead>
                     <tbody>
-                    
-                    <?php           
-                    
 
-                        while($linha = mysqli_fetch_assoc($dados)) {
+                        <?php
+
+
+                        while ($linha = mysqli_fetch_assoc($dados)) {
                             $id = $linha['id'];
                             $nome = $linha['nome'];
                             $endereco = $linha['endereco'];
@@ -72,14 +72,13 @@ $dados = mysqli_query($conn, $sql);
                                     <td>$senha</td>
                                     <td width=150px>
                                     <a href='editar.php?id=$id' class='btn btn-success btn-sm'>Editar</a>      
-                                    <a href='#' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#confirma'>Excluir</a>
+                                    <a href='#' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#confirma'
+                                    onclick=" .'"' ."pegar_dados($id, '$nome')" .'"' .">Excluir</a>
                                     </td>                             
                               </tr>";
-                                
-                        
                         }
 
-                    ?>
+                        ?>
 
                     </tbody>
                 </table>
@@ -90,25 +89,37 @@ $dados = mysqli_query($conn, $sql);
     </div>
 
     <div class="modal fade" id="confirma" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação de Exclusão</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Deseja realmente excluir?</p>
-        <p id="nome_pessoa">Nome de cadastro</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-danger">Sim</button>
-      </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação de Exclusão</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="excluir_script.php" method="post">
+                        <p>Deseja realmente excluir <b id="nome_pessoa">Nome de cadastro</b>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <input type="hidden" name="nome" id="nome_pessoa1" value="">
+                    <input type="hidden" name="id" id="id" value="">
+                    <input type="submit" class="btn btn-danger" value="Sim">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <script type="text/javascript">
+        function pegar_dados(id, nome) {
+            document.getElementById('nome_pessoa').innerHTML = nome;
+            document.getElementById('nome_pessoa1').value = nome;
+            document.getElementById('id').value = id;
+        }
+    </script>
+
+
 
 </body>
 
 </html>
-
